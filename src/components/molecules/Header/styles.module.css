@@ -1,0 +1,31 @@
+.container {
+    height: 212px;
+    width: 100%;
+    background: var(--bg-header);
+    padding: 40px 24px;
+}
+
+.navigationContainer {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 100%;
+    max-width: 1120px;
+    margin: 0 auto;
+}
+
+.actions {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+}
+
+.avatar {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.avatar strong {
+    color: var(--text-color);
+}

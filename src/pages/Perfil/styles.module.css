@@ -1,0 +1,47 @@
+.container {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    width: 100%;
+    max-width: 1120px;
+    margin: 0 auto;
+    padding: 48px 0;
+}
+
+.container > span {
+    font-size: 14px;
+    text-transform: uppercase;
+    color: #9a9a9a;
+}
+
+.content {
+    display: flex;
+    gap: 16px;
+}
+
+.content img {
+    border-radius: 10px;
+}
+
+.infoUser {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.infoUser h2 {
+    font-size: 40px;
+    font-weight: 900;
+}
+
+.social {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+}
+
+.social div {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}

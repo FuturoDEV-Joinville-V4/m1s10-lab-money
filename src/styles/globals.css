@@ -8,6 +8,11 @@
   box-sizing: border-box;
 }
 
+html {
+  font-family: 'Poppins', sans-serif;
+  background: var(--background);
+}
+
 a {
   font-weight: 500;
   color: #646cff;

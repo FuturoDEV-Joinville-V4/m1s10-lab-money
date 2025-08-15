@@ -1,6 +1,6 @@
-import { Button } from '../components/atoms/Button'
-import { TextField } from '../components/molecules/TextField'
-import styles from "./Login.module.css"
+import { TextField, Button } from '@mui/material'
+
+import styles from "./styles.module.css"
 
 export function LoginPage() {
     return (
@@ -13,7 +13,7 @@ export function LoginPage() {
                 {/* Senha */}
                 <TextField type="password" label="Senha" id="field-password" placeholder="Informe sua senha" />
 
-                <Button>Entrar</Button>
+                <Button size='large' variant='contained'>Entrar</Button>
             </form>
         </div>
     )
