@@ -29,3 +29,13 @@
 .avatar strong {
     color: var(--text-color);
 }
+
+@media (max-width: 600px) {
+    .actions button {
+        display: none;
+    }
+
+    .avatar strong {
+        display: none;
+    }
+}
