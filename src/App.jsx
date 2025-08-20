@@ -1,15 +1,16 @@
-// import { LoginPage } from "./pages/Login"
-
-import { DashboardPage } from "./pages/Dashboard"
+import { TransactionProvider } from './contexts/TransactionContext'
 
 // import { Perfil } from "./pages/Perfil"
+// import { LoginPage } from "./pages/Login"
+import { DashboardPage } from "./pages/Dashboard"
+
 
 function App() {
   
   return (
-    // <LoginPage />
-    // <Perfil />
-    <DashboardPage />
+    <TransactionProvider>
+      <DashboardPage />
+    </TransactionProvider>
   )
 }
 

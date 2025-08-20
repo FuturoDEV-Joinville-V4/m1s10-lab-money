@@ -14,10 +14,12 @@ import {
 
 import { Header } from '../../components/molecules/Header'
 import { Card } from '../../components/molecules/Card'
-import { transactions } from './data'
 import { formattedAmountReal, formattedDate } from '../../utils/formattedValues'
+import { useTransaction } from '../../contexts/TransactionContext'
 
 export function DashboardPage() {
+    const { transactions } = useTransaction()
+
     return (
         <>
             <Header />

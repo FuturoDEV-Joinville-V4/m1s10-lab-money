@@ -1,7 +1,7 @@
 import { useState } from 'react'
 import { Fab, Button, Divider, Avatar, Dialog, DialogTitle, DialogContent, TextField, FormControl, InputLabel, OutlinedInput, InputAdornment, Box, Select, MenuItem, useMediaQuery } from '@mui/material'
 import { PlusIcon } from 'lucide-react';
-
+import { useTransaction } from '../../../contexts/TransactionContext'
 import styles from './styles.module.css'
 
 const categories = [
@@ -21,6 +21,7 @@ const categories = [
 
 
 export function Header() {
+    const { create, transactions } = useTransaction()
     const [open, setOpen] = useState(false)
     const [description, setDescription] = useState('')
     const [amount, setAmount] = useState(0)
@@ -30,11 +31,14 @@ export function Header() {
     function handleSubmit(event) {
         event.preventDefault()
 
-        console.log('[DADOS DA TRANSAÇÃO]', {
+        const data = {
             description,
             amount,
             category
-        })
+        }
+      
+
+        create(data)
 
         setOpen(false)
     }
