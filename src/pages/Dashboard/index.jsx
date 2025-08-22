@@ -12,7 +12,6 @@ import {
     TableRow
  } from '@mui/material'
 
-import { Header } from '../../components/molecules/Header'
 import { Card } from '../../components/molecules/Card'
 import { formattedAmountReal, formattedDate } from '../../utils/formattedValues'
 import { useTransaction } from '../../contexts/TransactionContext'
@@ -22,7 +21,6 @@ export function DashboardPage() {
 
     return (
         <>
-            <Header />
             <Container style={{ marginTop: -75 }}>
                 {/* 12 columns */}
                 {/* Indicadores */}

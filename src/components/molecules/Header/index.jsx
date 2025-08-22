@@ -1,4 +1,5 @@
 import { useState } from 'react'
+import { Link } from "react-router"
 import { Fab, Button, Divider, Avatar, Dialog, DialogTitle, DialogContent, TextField, FormControl, InputLabel, OutlinedInput, InputAdornment, Box, Select, MenuItem, useMediaQuery } from '@mui/material'
 import { PlusIcon } from 'lucide-react';
 import { useTransaction } from '../../../contexts/TransactionContext'
@@ -47,15 +48,19 @@ export function Header() {
         <header className={styles.container}>
             <div className={styles.navigationContainer}>
                 <div>
-                    <img src="/logotipo.png" alt="LabMoney" />
+                    <Link to="/dashboard">
+                        <img src="/logotipo.png" alt="LabMoney" />
+                    </Link>
                 </div>
                 <div className={styles.actions}>
                     <Button size='large' variant='contained' onClick={() => setOpen(true)}>Nova transação</Button>
                     <Divider orientation='vertical' variant='middle' flexItem />
-                    <div className={styles.avatar}>
+             
+                    <Link to="/dashboard/profile" className={styles.avatar}>
                         <Avatar variant="rounded" src='https://github.com/nicholasmacedoo.png'>NM</Avatar>
                         <strong>Nicholas Macedo</strong>
-                    </div>
+                    </Link>
+      
                 </div>
             </div>
             <Dialog fullWidth open={open} onClose={() => setOpen(false)}>

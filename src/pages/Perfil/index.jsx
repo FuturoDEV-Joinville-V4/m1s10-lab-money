@@ -1,13 +1,11 @@
 import { Badge, Divider } from "@mui/material";
 import { Github, Instagram } from 'lucide-react'
 
-import { Header } from "../../components/molecules/Header";
 import styles from './styles.module.css'
 
 export function Perfil() {
     return (
         <>
-            <Header />
             <main className={styles.container}>
                 <div className={styles.content}>
                     {/* Imagem de avatar */}

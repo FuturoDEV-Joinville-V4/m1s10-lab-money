@@ -1,16 +1,14 @@
+import { RouterProvider } from "react-router"
 import { TransactionProvider } from './contexts/TransactionContext'
 
-// import { Perfil } from "./pages/Perfil"
-// import { LoginPage } from "./pages/Login"
-import { DashboardPage } from "./pages/Dashboard"
+import { routes } from "./routes"
 
 
 function App() {
-  
   return (
-    <TransactionProvider>
-      <DashboardPage />
-    </TransactionProvider>
+      <TransactionProvider>
+          <RouterProvider router={routes}/>
+      </TransactionProvider>
   )
 }
 
