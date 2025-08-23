@@ -1,6 +1,7 @@
 import { useState } from 'react'
 import { Link } from "react-router"
-import { Fab, Button, Divider, Avatar, Dialog, DialogTitle, DialogContent, TextField, FormControl, InputLabel, OutlinedInput, InputAdornment, Box, Select, MenuItem, useMediaQuery } from '@mui/material'
+import { useForm } from 'react-hook-form';
+import { Fab, Button, Divider, Avatar, Dialog, DialogTitle, DialogContent, TextField, FormControl, InputLabel, OutlinedInput, InputAdornment, Box, Select, MenuItem, useMediaQuery, FormHelperText } from '@mui/material'
 import { PlusIcon } from 'lucide-react';
 import { useTransaction } from '../../../contexts/TransactionContext'
 import styles from './styles.module.css'
@@ -22,23 +23,20 @@ const categories = [
 
 
 export function Header() {
-    const { create, transactions } = useTransaction()
-    const [open, setOpen] = useState(false)
-    const [description, setDescription] = useState('')
-    const [amount, setAmount] = useState(0)
-    const [category, setCategory] = useState('')
     const isMobile = useMediaQuery('(max-width: 600px)')
-
-    function handleSubmit(event) {
-        event.preventDefault()
-
-        const data = {
-            description,
-            amount,
-            category
+    const { create } = useTransaction()
+    const { register, handleSubmit, formState } = useForm({
+        defaultValues: {
+            description: "",
+            amount: 0,
+            category: ""
         }
-      
+    })
 
+    const [open, setOpen] = useState(false)
+    
+
+    function onSubmit(data) {
         create(data)
 
         setOpen(false)
@@ -66,32 +64,55 @@ export function Header() {
             <Dialog fullWidth open={open} onClose={() => setOpen(false)}>
                 <DialogTitle>Nova transação</DialogTitle>
                 <DialogContent style={{ paddingTop: 16 }}>
-                    <form onSubmit={handleSubmit}>
+                    <form onSubmit={handleSubmit(onSubmit)}>
                         <Box display={"flex"} flexDirection={"column"} gap={2}>
                             <TextField 
                                 placeholder='Ex.: Desenvolvimento de sites' 
                                 label="Descrição" 
-                                value={description}
-                                onChange={(event) => setDescription(event.target.value)} 
+                                error={!!formState.errors.description}
+                                helperText={formState.errors.description && formState.errors.description.message}
+                                {...register("description", { 
+                                    required: {
+                                        value: true,
+                                        message: "Este campo é obrigatório"
+                                    },
+                                    minLength: {
+                                        value: 3,
+                                        message: "A descrição deve ter pelo menos 3 caracteres"
+                                    }
+                                })}
                             />
                             <FormControl>
                                 <InputLabel>Valor</InputLabel>
                                 <OutlinedInput 
-                                    value={amount}
-                                    onChange={(event) => setAmount(+event.target.value)} 
                                     label="Valor" 
                                     placeholder='5.000' 
                                     type='number'
                                     startAdornment={<InputAdornment position='start' >R$</InputAdornment>} 
+                                    error={!!formState.errors.amount}
+                                    {...register("amount", { 
+                                        valueAsNumber: true,
+                                        min: {
+                                            value: 1,
+                                            message: "O valor deve ter no minimo R$ 1"
+                                        }
+                                    })}
                                 />
+                                {/* {formState.errors.amount && <FormHelperText>{formState.errors.amount}</FormHelperText>} */}
+                                
                             </FormControl>
                             
                             <FormControl fullWidth>
                                 <InputLabel id="select-categories">Categoria</InputLabel>
                                 <Select 
                                     label="Categoria" id='select-categories' 
-                                    onChange={(event) => setCategory(event.target.value)}
-                                    value={category}
+                                   {...register("category", {
+                                        required: {
+                                            value: true,
+                                            message: "Categoria é obrigatória."
+                                        }
+                                   })}
+                                   error={!!formState.errors.category}
                                 >
                                     {categories.map((category) => (
                                         <MenuItem key={category.id} value={category.name}>{category.name}</MenuItem>

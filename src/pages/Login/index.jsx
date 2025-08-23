@@ -1,7 +1,7 @@
+import { useForm } from "react-hook-form"
 import { TextField, Button } from '@mui/material'
 import { useNavigate } from 'react-router'
 import styles from "./styles.module.css"
-import { useState } from 'react'
 
 const mockuUser = {
     email: "nicholas@amoratec.com.br",
@@ -14,58 +14,65 @@ function api() {
 
 export function LoginPage() {
     const navigate = useNavigate()
-    const [email, setEmail] = useState('')
-    const [password, setPassword] = useState('')
-    const [isLoading, setIsLoading] = useState(false)
-
-    async function handleSubmit(event) {
-        event.preventDefault()
-        setIsLoading(true)
-        /** 
-         * Testes de validação
-         */
-        if(!email) {
-            return alert("Informe o seu e-mail")
+    const { register, handleSubmit, formState } = useForm({
+        defaultValues: {
+            email: "",
+            password: ""
         }
+    })
 
-        if(!password) {
-            return alert("Informe sua senha")
-        }
-
-        if(mockuUser.email !== email || mockuUser.password !== +password) {
+    async function onSubmit(data) {
+               
+        if(mockuUser.email !== data.email || mockuUser.password !== +data.password) {
             return alert("Email/Senha inválidos")
         }
         const resposta = await api()
         /** Sucesso! */
         navigate("/dashboard")
 
-        setIsLoading(false)
     }
+    
 
     return (
         <div className={styles.container}>
-            <form className={styles.login_form} onSubmit={handleSubmit}>
+            <form className={styles.login_form} onSubmit={handleSubmit(onSubmit)}>
                 <img src="/logotipo.png" height={61} width={210} />
                 <h1>Efetuar login</h1>
                 {/* E-mail */}
                 <TextField 
-                    value={email} 
-                    onChange={(event) => setEmail(event.target.value)} 
                     type="email" 
                     label="Email" id="field-email" 
                     placeholder="Informe seu email" 
+                    error={!!formState.errors.email}
+                    helperText={formState.errors.email && "Campo obrigatório"}
+                    {...register("email", { required: true })}
                 />
+                
                 {/* Senha */}
                 <TextField 
-                    value={password} 
-                    onChange={(event) => setPassword(event.target.value)} 
                     type="password" 
                     label="Senha" 
                     id="field-password" 
                     placeholder="Informe sua senha" 
+                    error={!!formState.errors.password}
+                    helperText={formState.errors.password && formState.errors.password.message}
+                    {...register("password", { 
+                        required: {
+                            value: true,
+                            message: "Este campo é obrigatório"
+                        },
+                        minLength: {
+                            value: 3,
+                            message: "O minimo de caracteres para senha é de 3"
+                        },
+                        maxLength: {
+                            value: 16,
+                            message: "O Maximo de caractes para senha e de 16"
+                        }
+                    })}
                 />
 
-                <Button size='large' type='submit' variant='contained' loading={isLoading}>Entrar</Button>
+                <Button size='large' type='submit' variant='contained' loading={formState.isSubmitting}>Entrar</Button>
             </form>
         </div>
     )
