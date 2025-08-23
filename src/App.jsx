@@ -1,9 +1,14 @@
-import { LoginPage } from "./pages/Login"
+import { RouterProvider } from "react-router"
+import { TransactionProvider } from './contexts/TransactionContext'
+
+import { routes } from "./routes"
+
 
 function App() {
-  
   return (
-    <LoginPage />
+      <TransactionProvider>
+          <RouterProvider router={routes}/>
+      </TransactionProvider>
   )
 }
 
